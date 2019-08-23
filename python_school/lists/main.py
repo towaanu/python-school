@@ -93,7 +93,6 @@ def insertion_sort(items):
             j -= 1
         sorted_list[j+1] = current_item
         
-    
     return sorted_list
 
 
