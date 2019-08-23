@@ -81,9 +81,7 @@ def selection_sort(items):
         sorted_list_min_index = min_index + i
 
         # swap value
-        current_value = sorted_list[i]
-        sorted_list[i] = sorted_list[sorted_list_min_index]
-        sorted_list[sorted_list_min_index] = current_value
+        sorted_list[i], sorted_list[sorted_list_min_index] = sorted_list[sorted_list_min_index], sorted_list[i]
     
     return sorted_list
 
