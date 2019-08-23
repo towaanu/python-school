@@ -45,10 +45,58 @@ def compute_avg(items):
     items_avg = items_sum/len(items)
     return items_avg
 
-if __name__ == "__main__":
-    items = [21, 1, 4, 78, 2099, 56, 18, 93, 876]
+def simple_min_element(items):
+    if(items is None or len(items) == 0):
+        return None
+    
+    min_item = items[0]
 
+    for item in items[1:]:
+        if(item < min_item): 
+            min_item = item
+
+    return min_item
+
+def min_element(items):
+    if(items is None or len(items) == 0):
+        return None
+    
+    min_item = (0, items[0])
+
+    for i in range(1, len(items)):
+        current_item = items[i]
+        _index, min_item_value = min_item
+        if(current_item < min_item_value): 
+            min_item = (i, current_item)
+
+    return min_item
+
+def selection_sort(items):
+
+    sorted_list = list(items)
+
+    for i in range(len(items)):
+        min_index, _value = min_element(sorted_list[i:])
+
+        sorted_list_min_index = min_index + i
+
+        # swap value
+        current_value = sorted_list[i]
+        sorted_list[i] = sorted_list[sorted_list_min_index]
+        sorted_list[sorted_list_min_index] = current_value
+    
+    return sorted_list
+
+
+if __name__ == "__main__":
+    items = [521, 134, 78, 2099, 56, 18, 1, 93, 876]
+
+    print(f"Items : {helpers.display_list_str(items)}")
     print(f"Simple Element {simple_find_element(items, 56)}")
     print(f"Find Element {find_element(items, lambda x : x == 56)}")
     print(f"Max Element {max_element(items)}")
+    print(f"Min Element {min_element(items)}")
     print(f"Average Element {compute_avg(items)}")
+
+    selection_sort_list = selection_sort(items)
+    print(f"Selection sort {helpers.display_list_str(selection_sort_list)}")
