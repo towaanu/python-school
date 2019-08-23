@@ -72,10 +72,8 @@ def min_element(items):
     return min_item
 
 def selection_sort(items):
-
     sorted_list = list(items)
-
-    for i in range(len(items)):
+    for i in range(len(sorted_list)):
         min_index, _value = min_element(sorted_list[i:])
 
         sorted_list_min_index = min_index + i
@@ -84,6 +82,20 @@ def selection_sort(items):
         sorted_list[i], sorted_list[sorted_list_min_index] = sorted_list[sorted_list_min_index], sorted_list[i]
     
     return sorted_list
+
+def insertion_sort(items):
+    sorted_list = list(items)
+    for i in range(1, len(sorted_list)):
+        current_item = sorted_list[i]
+        j = i - 1
+        while(j >= 0 and current_item < sorted_list[j]):
+            sorted_list[j + 1] = sorted_list[j]
+            j -= 1
+        sorted_list[j+1] = current_item
+        
+    
+    return sorted_list
+
 
 
 if __name__ == "__main__":
@@ -98,3 +110,6 @@ if __name__ == "__main__":
 
     selection_sort_list = selection_sort(items)
     print(f"Selection sort {helpers.display_list_str(selection_sort_list)}")
+
+    insertion_sort_list = insertion_sort(items)
+    print(f"Insertion sort {helpers.display_list_str(insertion_sort_list)}")
