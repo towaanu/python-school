@@ -97,7 +97,7 @@ def insertion_sort(items):
     return sorted_list
 
 # Recherche dichotomique
-def binary_search(items, item_to_search):
+def binary_search_iterative(items, item_to_search):
     found_item = None
 
     top_limit = len(items) - 1
@@ -107,7 +107,7 @@ def binary_search(items, item_to_search):
         current_index = math.floor((top_limit + bottom_limit) / 2)
         current_item = items[current_index]
 
-        print(f"[binary search] top_limit {top_limit} :: bottom_limit {bottom_limit} :: current_index {current_index} :: current_item : {current_item}")
+        print(f"[binary search iterative] top_limit {top_limit} :: bottom_limit {bottom_limit} :: current_index {current_index} :: current_item : {current_item}")
 
         if item_to_search > current_item:
             bottom_limit = current_index + 1
@@ -136,4 +136,4 @@ if __name__ == "__main__":
     insertion_sort_list = insertion_sort(items)
     print(f"Insertion sort {helpers.display_list_str(insertion_sort_list)}")
 
-    print(f"Binary search result : {binary_search(selection_sort_list, 134)}")
+    print(f"Binary search result : {binary_search_iterative(selection_sort_list, 134)}")
