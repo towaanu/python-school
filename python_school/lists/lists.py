@@ -119,6 +119,23 @@ def binary_search_iterative(items, item_to_search):
 
     return found_item
 
+def binary_search_recursive(items, item_to_search):
+    current_index = math.floor((len(items) - 1) / 2)
+    current_item = items[current_index]
+
+    print(f"[binary search recursive] {helpers.display_list_str(items)} \n")
+    print(f"[binary search recursive] current_index {current_index} :: current_item : {current_item}")
+
+    if item_to_search > current_item:
+        new_bottom_limit = current_index + 1
+        return binary_search_recursive(items[new_bottom_limit:], item_to_search)
+
+    elif item_to_search < current_item:
+        new_top_limit = current_index
+        return binary_search_recursive(items[:new_top_limit], item_to_search)
+
+    else:
+        return current_item
 
 if __name__ == "__main__":
     items = [521, 134, 78, 2099, 56, 18, 1, 93, 876]
@@ -136,4 +153,5 @@ if __name__ == "__main__":
     insertion_sort_list = insertion_sort(items)
     print(f"Insertion sort {helpers.display_list_str(insertion_sort_list)}")
 
-    print(f"Binary search result : {binary_search_iterative(selection_sort_list, 134)}")
+    print(f"Binary search iterative result : {binary_search_iterative(selection_sort_list, 134)}")
+    print(f"Binary search recursive result : {binary_search_recursive(selection_sort_list, 134)}")
