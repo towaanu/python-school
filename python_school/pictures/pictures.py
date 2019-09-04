@@ -1,18 +1,26 @@
 from PIL import Image
 
 def rgb_pixel_to_grey(r, g, b):
-    avg = int(round((r+g+b/3), 0))
-    return (avg, avg, avg)
+    avg = (r+g+b)/3
+    rounded_avg = int(round(avg, 0))
+    return (rounded_avg, rounded_avg, rounded_avg)
 
 def image_to_grey(base_image):
     base_pixels = list(base_image.getdata())
     grey_pixels = [rgb_pixel_to_grey(r, g, b) for (r, g, b) in base_pixels]
-
     grey_image = Image.new('RGB', base_image.size)
     grey_image.putdata(grey_pixels)
 
     return grey_image
 
+def image_to_grayscale(base_image):
+    base_pixels = list(base_image.getdata())
+    grayscale_pixels = [(r+g+b)/3 for (r, g, b) in base_pixels]
+
+    grayscale_image = Image.new('L', base_image.size)
+    grayscale_image.putdata(grayscale_pixels)
+
+    return grayscale_image
 
 def image_to_negative(base_image):
     base_pixels = list(base_image.getdata())
@@ -42,3 +50,8 @@ if __name__ == "__main__":
     street_art_grey_image = image_to_grey(street_art_image)
     street_art_grey_image.save(
         f'{res_images_path}/grey_street_art.jpeg')
+    
+    # Grayscale
+    street_art_grayscale_image = image_to_grayscale(street_art_image)
+    street_art_grayscale_image.save(
+        f'{res_images_path}/grayscale_street_art.jpeg')
