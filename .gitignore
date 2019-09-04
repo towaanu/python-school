@@ -150,3 +150,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# pictures
+python_school/pictures/res_images/**/*.jpeg
+python_school/pictures/res_images/**/*.jpg
+python_school/pictures/res_images/**/*.bmp
