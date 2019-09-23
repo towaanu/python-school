@@ -1,6 +1,5 @@
 from queue import Queue
 
-
 def tree_height(tree):
     if tree == None:
         return -1
@@ -10,7 +9,6 @@ def tree_height(tree):
 
     return max(left_height, right_height) + 1
 
-
 def tree_size(tree):
     if tree == None:
         return 0
@@ -18,8 +16,6 @@ def tree_size(tree):
     return tree_size(tree['left']) + tree_size(tree['right']) + 1
 
 # Parcours ordre "infix"
-
-
 def in_order_traversal(tree):
     if tree is None:
         return
@@ -29,8 +25,6 @@ def in_order_traversal(tree):
     in_order_traversal(tree["right"])
 
 # Parcours ordre "suffix"
-
-
 def post_order_traversal(tree):
     if tree is None:
         return
@@ -40,8 +34,6 @@ def post_order_traversal(tree):
     print(tree["value"])
 
 # Parcours ordre "prefix"
-
-
 def pre_order_traversal(tree):
     if tree is None:
         return
@@ -67,7 +59,6 @@ def breadth_first_search(tree):
         if current_node['right'] is not None:
             nodes_to_visit.put(current_node['right'])
 
-
 def depth_first_search(tree):
     nodes_to_visit = []
     nodes_to_visit.append(tree)
@@ -82,8 +73,6 @@ def depth_first_search(tree):
 
         if current_node['left'] is not None:
             nodes_to_visit.append(current_node['left'])
-
-
 
 if __name__ == "__main__":
     print("hello binary tree :D")
