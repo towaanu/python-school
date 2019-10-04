@@ -1,36 +1,35 @@
-def make_pattern_dict(pattern):
-    pattern_length = len(pattern)
-    tuple_list = [(pattern[i], i) for i in range(pattern_length)]
-    return dict(tuple_list)
-
-
-def boyer_moore_search(text, pattern):
-    pattern_length = len(pattern)
+def offset_memo(text):
+    memo = {}
     text_length = len(text)
+    for i in range(text_length - 1):
+        current_char = text[i]
+        memo[current_char] = text_length - i - 1
+    return memo
 
-    pattern_dict = make_pattern_dict(pattern)
-    print(pattern_dict)
+def boyer_moore_horspool(text, search_text):
+    memo = offset_memo(search_text)
+    text_offset = 0
 
-    shift = 0
-    while shift <= (text_length - pattern_length):
-        j = pattern_length - 1
+    while text_offset < (len(text) - len(search_text)):
 
-        print(f"Shift: {shift}")
+        i = len(search_text) - 1
 
-        while j >= 0  and pattern[j] == text[shift + j]:
-            j -= 1
+        while i >= 0 and search_text[i] == text[text_offset + i]:
+            i -= 1
         
-        if j < 0:
-            print(f"Found it ! shift: {shift}")
-            shift += pattern_length
-        
+        if i < 0:
+            # found it !
+            return text_offset
         else:
-            shift += pattern_length - pattern_dict.get(text[shift + j], 0) - 1
+            current_text_char = text[text_offset + len(search_text) - 1]
+            
+            text_offset += memo.get(current_text_char, len(search_text))
 
+    return -1
 
+if __name__ == "__main__":
+    print('Hello boyer moore :D')
 
-if __name__ == '__main__':
-    # print(make_pattern_dict("Hello"))
-    txt = "ABAAABCD"
-    pat = "ABC"
-    print(boyer_moore_search(txt, pat))
+    text = "Bonjour josianne, comment ça va ?"
+    search_text = "comment"
+    print(f"boyer_moore_horspool({text}, {search_text}) {boyer_moore_horspool(text, search_text)}")
