@@ -5,6 +5,11 @@
 import math
 
 def merge_lists(left, right):
+    """ Merge 2 lists preserving order
+    The 2 lists needs to be sorted
+    >>> merge_lists([1, 3, 5], [2, 4, 6])
+    [1, 2, 3, 4, 5, 6]
+    """
     merged_list = [None] * (len(left) + len(right))
 
     i = 0
@@ -30,6 +35,10 @@ def merge_lists(left, right):
     return merged_list
 
 def merge_sort(l):
+    """ Sort a list using the merge_sort algorithm
+    >>> merge_sort([10, 6, 4])
+    [4, 6, 10]
+    """
     length = len(l)
     if(length == 1):
         return l
