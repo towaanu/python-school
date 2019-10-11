@@ -1,4 +1,5 @@
 import math
+from queue import Queue
 
 def find_neighbors(graph, vertex):
 
@@ -77,6 +78,49 @@ def dijkstra_shortest_path(graph, frm, to):
 
     return (vertices_distance, previous)
 
+def breadth_first_search(graph):
+    vertices_to_visit = Queue(len(graph.keys()))
+    visited_vertex = set()
+
+    first_vertex = list(graph.keys())[0]
+    vertices_to_visit.put(first_vertex)
+
+    while not vertices_to_visit.empty():
+        current_vertex = vertices_to_visit.get()
+
+        if current_vertex in visited_vertex:
+            continue
+
+        print(f"Label: {current_vertex}")
+
+        visited_vertex.add(current_vertex)
+
+        for vertex in find_neighbors(graph, current_vertex):
+            vertices_to_visit.put(vertex)
+
+    return None
+
+def depth_first_search(graph):
+    vertices_to_visit = list()
+    visited_vertex = set()
+
+    first_vertex = list(graph.keys())[0]
+    vertices_to_visit.append(first_vertex)
+
+    while vertices_to_visit:
+        current_vertex = vertices_to_visit.pop()
+
+        if current_vertex in visited_vertex:
+            continue
+
+        print(f"Label: {current_vertex}")
+
+        visited_vertex.add(current_vertex)
+
+        for vertex in find_neighbors(graph, current_vertex):
+            vertices_to_visit.append(vertex)
+
+    return None
 
 if __name__ == "__main__":
 
@@ -111,3 +155,26 @@ if __name__ == "__main__":
     print(find_neighbors(my_graph, "B"))
     print(find_edges(my_graph, "B"))
     adjacency_matrix(my_graph)
+
+    bfs_graph = {
+        "A": [
+            {"weight": 1, "to": "B"},
+            {"weight": 1, "to": "C"},
+            {"weight": 1, "to": "D"},
+        ],
+        "B": [
+            {"weight": 1, "to": "E"},
+            {"weight": 1, "to": "F"}
+        ],
+        "C": [],
+        "D": [{"weight": 1, "to": "G"}],
+        "E": [],
+        "F": [],
+        "G": [{"weight": 1, "to": "C"}]
+    }
+
+    print("BFS")
+    print(breadth_first_search(bfs_graph))
+    print("DFS")
+    print(depth_first_search(bfs_graph))
+
