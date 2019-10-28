@@ -18,6 +18,7 @@ RUN apk update && apk add \
     openjpeg-dev \
     openblas \ 
     openblas-dev
+    # python3-tkinter
     # libimagequant
     # libraqm
 
@@ -27,7 +28,8 @@ RUN pip install \
     Pillow \
     scipy \
     cython \
-    scikit-learn
+    scikit-learn \
+    matplotlib
 
 # Argument to python command
 CMD ["python", "main.py"]
