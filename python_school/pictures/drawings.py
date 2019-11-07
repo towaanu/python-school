@@ -10,7 +10,6 @@ def euclidean_distance(a, b):
 
     return euclidean_distance
 
-
 def create_france_flag(width, height):
 
     blue_color = (0, 0, 255)
