@@ -155,3 +155,5 @@ Temporary Items
 python_school/pictures/res_images/**/*.jpeg
 python_school/pictures/res_images/**/*.jpg
 python_school/pictures/res_images/**/*.bmp
+
+python_school/pictures/my_drawings/**/*.jpeg
