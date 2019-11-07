@@ -43,7 +43,7 @@ def create_japan_flag(width, height):
     japan_flag = Image.new("RGB", (width, height), white_color)
 
     center = (width//2, height//2)
-    
+
     # draw circle
     for x in range(width):
         for y in range(height):
@@ -52,6 +52,31 @@ def create_japan_flag(width, height):
     
     return japan_flag
 
+def create_danemark_flag(width, height):
+    white_color = (255, 255, 255)
+    red_color = (255, 0, 0)
+
+    band_size = width // 10
+    width_unit = width // 10
+
+    danemark_flag = Image.new("RGB", (width, height), red_color)
+
+    begin_vertical_band = width_unit * 3
+    end_vertical_band = begin_vertical_band + band_size
+
+    for x in range(begin_vertical_band, end_vertical_band):
+        for y in range(height):
+            danemark_flag.putpixel((x, y), white_color)
+    
+
+    begin_horizontal_band = (height - band_size) // 2
+    end_horizontal_band = (height + band_size) // 2
+
+    for x in range(width):
+        for y in range(begin_horizontal_band, end_horizontal_band):
+            danemark_flag.putpixel((x, y), white_color)
+    
+    return danemark_flag
 
 if __name__ == "__main__":
     print("Hello drawing :D")
@@ -62,3 +87,6 @@ if __name__ == "__main__":
 
     japan_flag = create_japan_flag(600, 300)
     japan_flag.save(f"{my_drawings_path}/japan_flag.jpeg")
+
+    danemark_flag = create_danemark_flag(600, 300)
+    danemark_flag.save(f"{my_drawings_path}/danemark_flag.jpeg")
