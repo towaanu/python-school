@@ -40,14 +40,9 @@ def create_japan_flag(width, height):
     red_color = (255, 0, 0)
     radius = height*0.3
 
-    japan_flag = Image.new("RGB", (width, height))
+    japan_flag = Image.new("RGB", (width, height), white_color)
 
     center = (width//2, height//2)
-
-    # fill white
-    for x in range(width):
-        for y in range(height):
-            japan_flag.putpixel((x, y), white_color)
     
     # draw circle
     for x in range(width):
