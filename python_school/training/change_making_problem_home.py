@@ -25,6 +25,22 @@ def change_making_problem(money_set, amount, memo={}):
 
     return nb_coins
 
+def change_making_problem_bottom_up(money_set, amount):
+    results_memo = {}
+    results_memo[0] = 0
+
+    for current_amount in range(1, amount + 1):
+        for coin in money_set:
+            old_amount = current_amount - coin
+
+            if old_amount in results_memo:
+                nb_coin = results_memo[old_amount] + 1
+                if current_amount not in results_memo or results_memo[current_amount] > nb_coin:
+                    results_memo[current_amount] = nb_coin
+
+    return results_memo[amount]
+
+
 
 if __name__ == "__main__":
 
@@ -33,13 +49,14 @@ if __name__ == "__main__":
     coins = [1, 2, 5]
     amount = 20
 
-    # print(f"Bottom up : {cmp_bottom_up(coins, amount)}")
     print(f"Top down : {change_making_problem(coins, amount)}")
+    print(f"Bottom up : {change_making_problem_bottom_up(coins, amount)}")
 
     # not_optimal_money_set = (4, 3, 1)
     not_optimal_money_set = (1, 3, 4)
     amount_b = 6
 
-    # print(f"Bottom up ?: {cmp_bottom_up(not_optimal_money_set, amount_b)}")
+    print(
+        f"Bottom up: {change_making_problem_bottom_up(not_optimal_money_set, amount_b)}")
     print(
         f"Top down ?: {change_making_problem(not_optimal_money_set, amount_b)}")
