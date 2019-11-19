@@ -77,6 +77,33 @@ def create_danemark_flag(width, height):
     
     return danemark_flag
 
+def create_german_flag(width, height):
+    white_color = (255, 255, 255)
+    black_color = (0, 0, 0)
+    yellow_color = (237, 245, 17)
+    red_color = (255, 0, 0)
+
+    height_band = height // 3
+
+    german_flag = Image.new("RGB", (width, height), white_color)
+
+    for y in range(height_band):
+        for x in range(width):
+            german_flag.putpixel((x, y), black_color)
+
+    for y in range(height_band, height_band*2):
+        for x in range(width):
+            german_flag.putpixel((x, y), red_color)
+
+    for y in range(height_band*2, height):
+        for x in range(width):
+            german_flag.putpixel((x, y), yellow_color)
+    
+    return german_flag
+
+
+
+
 if __name__ == "__main__":
     print("Hello drawing :D")
     my_drawings_path = "my_drawings"
@@ -89,3 +116,6 @@ if __name__ == "__main__":
 
     danemark_flag = create_danemark_flag(600, 300)
     danemark_flag.save(f"{my_drawings_path}/danemark_flag.jpeg")
+
+    german_flag = create_german_flag(600, 300)
+    german_flag.save(f"{my_drawings_path}/german_flag.jpeg")
