@@ -45,11 +45,54 @@ def insertion_sort(items):
     
     return items
 
+def merge_list(left, right):
+
+    i = 0
+    j = 0
+
+    res_list = []
+
+    while i < len(left) and j < len(right):
+        current_left_item = left[i]
+        current_right_item = right[j]
+
+        if current_left_item < current_right_item:
+            res_list.append(current_left_item)
+            i += 1
+        else:
+            res_list.append(current_right_item)
+            j += 1
+    
+
+    while i < len(left):
+        res_list.append(left[i])
+        i += 1
+    
+    while j < len(right):
+        res_list.append(right[j])
+        j += 1
+    
+    return res_list
+
+def merge_sort(items):
+    items_length = len(items)
+
+    if items_length == 0 or items_length == 1:
+        return items
+    
+    middle_index = items_length // 2
+
+    left = merge_sort(items[:middle_index])
+    right = merge_sort(items[middle_index:])
+
+    return merge_list(left, right)
+
 
 if __name__ == "__main__":
     print("Hello sort :)")
 
     lili = [1, 89, 10, 7, 76]
 
-    print(f"Selection sort : {lili} => {selection_sort(lili)}")
-    print(f"Insertion sort : {lili} => {insertion_sort(lili)}")
+    print(f"Selection sort : {lili} => {selection_sort(lili[:])}")
+    print(f"Selection sort : {lili} => {selection_sort(lili[:])}")
+    print(f"Merge sort : {lili} => {merge_sort(lili[:])}")
