@@ -1,8 +1,8 @@
 FROM python:3-alpine
 
 WORKDIR /python-school
-RUN apk update && apk add build-base
 
+RUN apk update && apk add build-base
 RUN pip install --upgrade pip wheel
 
 # pillow
@@ -30,6 +30,8 @@ RUN pip install \
     cython \
     scikit-learn \
     matplotlib
+
+RUN apk add python3-tkinter
 
 # Argument to python command
 CMD ["python", "main.py"]
