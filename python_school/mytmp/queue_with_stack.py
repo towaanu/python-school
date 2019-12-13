@@ -27,6 +27,9 @@ class QueueWithStack:
     def is_empty(self):
         return not self.enqueue_stack and not self.dequeue_stack
     
+    def count(self):
+        return len(self.enqueue_stack) + len(self.dequeue_stack)
+
     def __str__(self):
         items_str = ""
         
