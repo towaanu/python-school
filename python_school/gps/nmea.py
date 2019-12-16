@@ -60,9 +60,7 @@ def nmea_to_coords(nmea_msg: str):
 def nmea_to_osm_url(dd_latitude, dd_longitude):
     return f"http://www.openstreetmap.org/?mlat={dd_latitude}&mlon={dd_longitude}"
 
-if __name__ == "__main__":
-    print("Hello nmea :D")
-
+def sample_data():
     nmea_message = "$GPGGA,141512.04,4713.3975,N,00500.5647,E,1,7,1.839,282.208,M,,M,0,*7E"
     nmea_info = nmea_to_coords(nmea_message)
     print(nmea_info)
@@ -73,6 +71,12 @@ if __name__ == "__main__":
     nmea_message_b = "$GPGGA,092750.000,5321.6802,N,00630.3372,W,1,8,1.03,61.7,M,55.2,M,,*76"
     nmea_info_b = nmea_to_coords(nmea_message_b)
     print(nmea_info_b)
-    osm_url_b = nmea_to_osm_url(nmea_info["dd_latitude"], nmea_info["dd_longitude"])
+    osm_url_b = nmea_to_osm_url(nmea_info_b["dd_latitude"], nmea_info_b["dd_longitude"])
     print(f"osm url : {osm_url_b}")
+
+if __name__ == "__main__":
+    print("Hello nmea :D")
+    sample_data()
+
+    
     
