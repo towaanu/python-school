@@ -1,3 +1,27 @@
+def remove_leading_zero_dms(dms_coord:str) -> float:
+    i = 0
+    while dms_coord[i] == "0":
+        i += 1
+    
+    return dms_coord[i:]
+
+def dms_to_dd_coordinate(dms_coord:str) -> float:
+
+    coord_label = dms_coord[-1] 
+
+    coef = 1 
+    if coord_label == "S" or coord_label == "W":
+        coef = -1
+
+    # -2 for removing N/S/W/E
+    float_dms = float(dms_coord[:-1])
+    float_dd_coord = (float_dms / 100)
+    int_dd_part = float_dd_coord // 1
+    decimal_dd_part = float_dd_coord % 1
+
+    dd_cord = int_dd_part + ((decimal_dd_part * 100) / 60)
+
+    return coef * dd_cord
 
 def nmea_to_coords(nmea_msg: str):
     splitted_nmea = nmea_msg.split(',')
@@ -23,6 +47,8 @@ def nmea_to_coords(nmea_msg: str):
         "sent_time": f"{sent_time_hours}h {sent_time_minutes}m {sent_time_seconds}s",
         "latitude": f"{lat_number} {lat_label}",
         "longitude": f"{long_number} {long_label}",
+        "dd_latitude": dms_to_dd_coordinate(f"{lat_number}{lat_label}"),
+        "dd_longitude": dms_to_dd_coordinate(f"{long_number}{long_label}"),
         "position_type": position_type,
         "sattelites_count": sattelites_count,
         "horizontal_accuracy": horizontal_accuracy,
@@ -31,6 +57,8 @@ def nmea_to_coords(nmea_msg: str):
 
     return formatted_info
 
+def nmea_to_osm_url(dd_latitude, dd_longitude):
+    return f"http://www.openstreetmap.org/?mlat={dd_latitude}&mlon={dd_longitude}"
 
 if __name__ == "__main__":
     print("Hello nmea :D")
@@ -38,7 +66,13 @@ if __name__ == "__main__":
     nmea_message = "$GPGGA,141512.04,4713.3975,N,00500.5647,E,1,7,1.839,282.208,M,,M,0,*7E"
     nmea_info = nmea_to_coords(nmea_message)
     print(nmea_info)
+    osm_url = nmea_to_osm_url(nmea_info["dd_latitude"], nmea_info["dd_longitude"])
+    print(f"osm url : {osm_url}")
+
 
     nmea_message_b = "$GPGGA,092750.000,5321.6802,N,00630.3372,W,1,8,1.03,61.7,M,55.2,M,,*76"
     nmea_info_b = nmea_to_coords(nmea_message_b)
     print(nmea_info_b)
+    osm_url_b = nmea_to_osm_url(nmea_info["dd_latitude"], nmea_info["dd_longitude"])
+    print(f"osm url : {osm_url_b}")
+    
