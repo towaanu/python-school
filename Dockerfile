@@ -31,6 +31,8 @@ RUN pip install \
     scikit-learn \
     matplotlib
 
+RUN pip install mypy
+
 RUN apk add python3-tkinter
 
 # Argument to python command
