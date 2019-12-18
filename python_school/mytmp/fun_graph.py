@@ -42,7 +42,6 @@ def dfs(graph, start_vertex):
 
 # def dfs_is_cycle(graph, start_vertex):
 
-
 if __name__ == "__main__":
     print("Hello Functional graph ! :D")
 
