@@ -161,3 +161,6 @@ python_school/pictures/my_drawings/**/*.jpeg
 # csvs 
 python_school/mytmp/csvs/*.csv
 python_school/csvs/*.csv
+
+# sandbox
+python_school/sandbox
