@@ -31,7 +31,11 @@ def generate_random_activities(nb_activities):
     rand_activities = []
     for i in range(nb_activities):
         begin_hour = random.randrange(0, 23)
-        end_hour = random.randrange(begin_hour + 1, 24)
+
+        if begin_hour == 23:
+            end_hour = 24
+        else:
+            end_hour = random.randrange(begin_hour + 1, 24)
 
         red = random.randrange(0, 255) / 255
         green = random.randrange(0, 255) / 255
