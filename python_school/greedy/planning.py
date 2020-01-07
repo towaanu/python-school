@@ -47,7 +47,6 @@ def generate_random_activities(nb_activities):
     
     return rand_activities
 
-
 if __name__ == "__main__":
     print("Hello planning :D")
 
