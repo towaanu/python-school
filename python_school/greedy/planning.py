@@ -6,8 +6,8 @@ def display_planning(activities, file_name="planning.png"):
     plt.xlabel("Time")
 
     for i in range(len(activities)):
-        (begin_hour, end_hour) = activities[i]
-        plt.barh(i, end_hour - begin_hour, left=[begin_hour], height=0.4)
+        (begin_hour, end_hour, color) = activities[i]
+        plt.barh(i, end_hour - begin_hour, left=[begin_hour], height=0.4, color=color)
     
     plt.savefig(file_name)
     plt.clf()
@@ -17,7 +17,7 @@ def generate_planning(activities):
     last_activity = None
     planning = []
     for activity in sorted_activities:
-        (begin_hour, end_hour) = activity
+        (begin_hour, end_hour, _color) = activity
 
         if last_activity is None or begin_hour >= last_activity[1]:
             planning.append(activity)
@@ -33,7 +33,13 @@ def generate_random_activities(nb_activities):
         begin_hour = random.randrange(0, 23)
         end_hour = random.randrange(begin_hour + 1, 24)
 
-        rand_activities.append((begin_hour, end_hour))
+        red = random.randrange(0, 255) / 255
+        green = random.randrange(0, 255) / 255
+        blue = random.randrange(0, 255) / 255
+
+        new_activity = (begin_hour, end_hour, (red, green, blue))
+
+        rand_activities.append(new_activity)
     
     return rand_activities
 
