@@ -101,8 +101,60 @@ def create_german_flag(width, height):
     
     return german_flag
 
+def create_finland_flag(width, height):
+    white_color = (255, 255, 255)
+    blue_color = (12, 51, 124)
+    finland_flag = Image.new("RGB", (width, height))
+
+    for x in range(width):
+        for y in range(height):
+            finland_flag.putpixel((x, y), white_color)
+    
+    width_unit = width // 10
+    height_unit = height // 10
+
+    band_size = int(1.5 * width_unit)
+
+    y_horizontal_start = height // 2 - band_size // 2
+
+    for x in range(width):
+        for y in range(y_horizontal_start, y_horizontal_start + band_size):
+            finland_flag.putpixel((x, y), blue_color)
+    
+
+    x_horizontal_start = width_unit * 2
+
+    for y in range(height):
+        for x in range(x_horizontal_start, x_horizontal_start + band_size):
+            finland_flag.putpixel((x, y), blue_color)
 
 
+    return finland_flag
+
+def create_ireland_flag(width, height):
+    white_color = (255, 255, 255)
+    orange_color = (240, 142, 78)
+    green_color = (71, 153, 103)
+
+    ireland_flag = Image.new("RGB", (width, height))
+
+    width_unit = width // 3
+    green_start, green_end = 0, width_unit
+    orange_start, orange_end = width_unit * 2, width
+
+    for x in range(width):
+        for y in range(height):
+            ireland_flag.putpixel((x, y), white_color)
+    
+    for y in range(height):
+        for x in range(green_start, green_end):
+            ireland_flag.putpixel((x, y), green_color)
+    
+    for y in range(height):
+        for x in range(orange_start, orange_end):
+            ireland_flag.putpixel((x, y), orange_color)
+
+    return ireland_flag
 
 if __name__ == "__main__":
     print("Hello drawing :D")
@@ -119,3 +171,9 @@ if __name__ == "__main__":
 
     german_flag = create_german_flag(600, 300)
     german_flag.save(f"{my_drawings_path}/german_flag.jpeg")
+
+    finland_flag = create_finland_flag(600, 300)
+    finland_flag.save(f"{my_drawings_path}/finland_flag.jpeg")
+
+    ireland_flag = create_ireland_flag(600, 300)
+    ireland_flag.save(f"{my_drawings_path}/ireland_flag.jpeg")
