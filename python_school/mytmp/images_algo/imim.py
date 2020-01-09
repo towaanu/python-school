@@ -42,22 +42,34 @@ def image_to_sepia_data(img):
 
     return sepia_img
 
+def image_to_sepia(img):
+    (width, height) = img.size
+    sepia_img = Image.new('RGB', img.size)
+
+    for x in range(width):
+        for y in range(height):
+            pixel_position = (x, y)
+            current_pixel = img.getpixel(pixel_position)
+            sepia_img.putpixel(pixel_position, pixel_to_sepia(current_pixel))
+    
+    return sepia_img
+
 if __name__ == "__main__":
     print("Hello grey :D")
 
-    mario_art_img = Image.open("./mario_art.jpg")
+    my_img_img = Image.open("./my_img.jpg")
 
-    mario_art_grey_rgb_img = image_to_grey_rgb(mario_art_img)
-    mario_art_grey_rgb_img.save("./mario_art_grey_rgb.jpg")
+    my_img_grey_rgb_img = image_to_grey_rgb(my_img_img)
+    my_img_grey_rgb_img.save("./my_img_grey_rgb.jpg")
 
-    mario_art_grey_img = image_to_grey(mario_art_img)
-    mario_art_grey_img.save("./mario_art_grey.jpg")
+    my_img_grey_img = image_to_grey(my_img_img)
+    my_img_grey_img.save("./my_img_grey.jpg")
 
-    mario_art_negative_img = image_to_negative(mario_art_img)
-    mario_art_negative_img.save('./mario_art_negative.jpg')
+    my_img_negative_img = image_to_negative(my_img_img)
+    my_img_negative_img.save('./my_img_negative.jpg')
 
-    mario_art_sepia_img = image_to_sepia_data(mario_art_img)
-    mario_art_sepia_img.save('./mario_art_sepia.jpg')
+    my_img_sepia_img = image_to_sepia(my_img_img)
+    my_img_sepia_img.save('./my_img_sepia.jpg')
 
     
 
