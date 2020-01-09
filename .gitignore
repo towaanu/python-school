@@ -158,6 +158,14 @@ python_school/pictures/res_images/**/*.bmp
 
 python_school/pictures/my_drawings/**/*.jpeg
 
+python_school/mytmp/images_algo/**/*.jpeg
+python_school/mytmp/images_algo/**/*.jpg
+python_school/mytmp/images_algo/**/*.bmp
+
+python_school/pictures/images/**/*.jpeg
+python_school/pictures/images/**/*.jpg
+python_school/pictures/images/**/*.bmp
+
 # csvs 
 python_school/mytmp/csvs/*.csv
 python_school/csvs/*.csv
