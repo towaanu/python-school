@@ -8,18 +8,15 @@ def find_neighbors(graph, vertex):
 
     return [path["to"] for path in graph[vertex]]
 
-
 def find_edges(graph, vertex):
     if vertex not in graph:
         return None
 
     return graph[vertex]
 
-
 def find_path(graph, frm, to):
     paths = graph[frm]
     return next((p for p in paths if p['to'] == to), None)
-
 
 def adjacency_matrix(graph):
     vertices_keys = list(graph.keys())
@@ -36,7 +33,6 @@ def adjacency_matrix(graph):
                 matrix[i][j] = path["weight"]
 
     print(matrix)
-
 
 def dijkstra_shortest_path(graph, frm, to):
     unvisited_vertices = set(graph.keys())
@@ -146,7 +142,7 @@ if __name__ == "__main__":
             {"weight": 1, "to": "E"},
         ],
         "E": [
-            {"weight": 1, "to": "B"},
+            {"weight": 1, "to": "D"},
             {"weight": 3, "to": "C"}
         ]
     }
