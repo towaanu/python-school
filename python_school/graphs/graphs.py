@@ -118,6 +118,27 @@ def depth_first_search(graph):
 
     return None
 
+def bellman_ford(graph, frm, to):
+    distance = {}
+    keys = graph.keys()
+    keys_len = len(keys)
+    for key in keys:
+        distance[key] = math.inf
+
+    distance[frm] = 0
+
+    for i in range(keys_len):
+        for key in keys:
+            for edge in find_edges(graph, key):
+                to_vertex = edge['to']
+                tmp_distance = distance[key] + edge['weight']
+
+                if tmp_distance < distance[to_vertex]:
+                    distance[to_vertex] = tmp_distance
+    
+    return distance
+
+
 if __name__ == "__main__":
 
     print("Graph :D")
@@ -147,7 +168,8 @@ if __name__ == "__main__":
         ]
     }
 
-    print(dijkstra_shortest_path(my_graph, "D", "C"))
+    print(dijkstra_shortest_path(my_graph, "A", "E"))
+    print(bellman_ford(my_graph, "A", "E"))
     print(find_neighbors(my_graph, "B"))
     print(find_edges(my_graph, "B"))
     adjacency_matrix(my_graph)
@@ -173,4 +195,3 @@ if __name__ == "__main__":
     print(breadth_first_search(bfs_graph))
     print("DFS")
     print(depth_first_search(bfs_graph))
-
