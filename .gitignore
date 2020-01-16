@@ -166,6 +166,8 @@ python_school/pictures/images/**/*.jpeg
 python_school/pictures/images/**/*.jpg
 python_school/pictures/images/**/*.bmp
 
+python_school/web_search/**/*.png
+
 # csvs 
 python_school/mytmp/csvs/*.csv
 python_school/csvs/*.csv

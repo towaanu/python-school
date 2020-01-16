@@ -1,5 +1,15 @@
 import random
+import matplotlib.pyplot as plt
 
+def display_result(site_stats):
+    x_labels = list(site_stats.keys())
+
+    bar_values = [site_stats[key]['visit'] for key in site_stats.keys()]
+
+    plt.bar(x_labels, bar_values)
+    plt.savefig('./sites_stats.png')
+    plt.clf()
+    
 def custom_crawler(websites, nb_tests=30):
     random.seed()
 
@@ -45,7 +55,9 @@ if __name__ == "__main__":
         "B": [{'to': 'A'}, {'to': 'D'}],
         "C": [{'to': 'D'}, {'to': 'A'}, {'to': 'E'}],
         "D": [{'to': 'B'}, {'to': 'C'}],
-        "E": [{'to': 'E'}]
+        "E": [{'to': 'A'}]
     }
 
-    print(custom_crawler(websites, 50))
+    sites_stats = custom_crawler(websites, 1000)
+    display_result(sites_stats)
+    print(sites_stats)
