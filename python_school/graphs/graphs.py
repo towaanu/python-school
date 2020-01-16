@@ -138,6 +138,26 @@ def bellman_ford(graph, frm, to):
     
     return distance
 
+def is_cycle(graph):
+    vertices_to_visit = []
+
+    if len(graph.keys()) == 0:
+        return False
+
+    start_vertex = list(graph.keys())[0]
+
+    vertices_to_visit.append(start_vertex)
+
+    while vertices_to_visit:
+        current_vertex = vertices_to_visit.pop()
+        neighbors = find_neighbors(graph, current_vertex)
+        for neighbor in neighbors:
+            if neighbor in vertices_to_visit:
+                return True
+            vertices_to_visit.append(neighbor)
+    
+    return False
+        
 
 if __name__ == "__main__":
 
@@ -190,6 +210,9 @@ if __name__ == "__main__":
         "F": [],
         "G": [{"weight": 1, "to": "C"}]
     }
+
+    
+    print(f"Cycle : {is_cycle(bfs_graph)}")
 
     print("BFS")
     print(breadth_first_search(bfs_graph))

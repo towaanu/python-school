@@ -39,6 +39,38 @@ def dfs(graph, start_vertex):
                 visited_vertices.add(neighbor)
                 vertices_to_visit.append(neighbor)
 
+# Verifier, si le graph contient des cycles
+def is_cycle(graph):
+    vertices = list(graph.keys())
+
+    if not vertices:
+        return False
+    
+    vertices_to_visit = []
+    start_vertex = vertices[0]
+    vertices_to_visit.append(start_vertex)
+    parent_vertices = {}
+    parent_vertices[start_vertex] = None
+
+    while vertices_to_visit:
+        current_vertex = vertices_to_visit.pop()
+
+        # On regarde tous les voisins
+        for neighbor in graph[current_vertex]:
+
+            if parent_vertices[current_vertex] == neighbor:
+                continue
+
+            # Si un voisin est déjà dans la pile
+            # Il y a un cycle
+            if neighbor in vertices_to_visit:
+                return True
+            
+            parent_vertices[neighbor] = current_vertex
+            vertices_to_visit.append(neighbor)
+    
+    return False
+
 
 # def dfs_is_cycle(graph, start_vertex):
 
@@ -60,3 +92,12 @@ if __name__ == "__main__":
 
     bfs(my_graph, "A")
     dfs(my_graph, "A")
+
+    no_cycle_graph = {
+        "A": ["B", "D"],
+        "B": ["A", "C"],
+        "C": ["B"],
+        "D": ["A"]
+    }
+
+    print(f"[is_cycle] {is_cycle(no_cycle_graph)}")
