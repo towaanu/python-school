@@ -34,18 +34,18 @@ def image_to_negative(base_image):
 
     return negative_image
 
-def get_h_square_pixels(x, y):
+def get_h_square_pixels(x, y, default_coef=1):
     return [
-        ((x-1, y-1), -1), ((x, y-1), -1), ((x+1, y-1), -1),
-        ((x-1, y), 0),             ((x+1, y), 0),
-        ((x-1, y+1), 1), ((x, y+1), 1), ((x+1, y), 1)
+        ((x-1, y-1), -1 * default_coef), ((x, y-1), -1 * default_coef), ((x+1, y-1), -1 * default_coef),
+        ((x-1, y), 0 * default_coef),             ((x+1, y), 0),
+        ((x-1, y+1), 1 * default_coef), ((x, y+1), 1 * default_coef), ((x+1, y), 1 * default_coef)
     ]
 
-def get_v_square_pixels(x, y):
+def get_v_square_pixels(x, y, default_coef=1):
     return [
-        ((x-1, y-1), -1), ((x, y-1), 0), ((x+1, y-1), 1),
-        ((x-1, y), -1),                 ((x+1, y), 1),
-        ((x-1, y+1), -1), ((x, y+1), 0), ((x+1, y), 1)
+        ((x-1, y-1), -1 * default_coef), ((x, y-1), 0 * default_coef), ((x+1, y-1), 1 * default_coef),
+        ((x-1, y), -1 * default_coef),                 ((x+1, y), 1 * default_coef),
+        ((x-1, y+1), -1 * default_coef), ((x, y+1), 0 * default_coef), ((x+1, y), 1 * default_coef)
     ]
 def filter_square_pixel_in_image(square_coords, image_size):
     (width, height) = image_size
@@ -78,8 +78,8 @@ def image_to_contour(base_image):
     for x in range(width):
         for y in range(height):
             r_sum, g_sum, b_sum = (0, 0, 0)
-            square_h_coords = filter_square_pixel_in_image(get_h_square_pixels(x, y), (width, height))
-            square_v_coords = filter_square_pixel_in_image(get_v_square_pixels(x, y), (width, height))
+            square_h_coords = filter_square_pixel_in_image(get_h_square_pixels(x, y, 3), (width, height))
+            square_v_coords = filter_square_pixel_in_image(get_v_square_pixels(x, y, 3), (width, height))
             
             (rh, gh, bh) = avg_rgb_pixels(square_h_coords, base_image)
             (rv, gv, bv) = avg_rgb_pixels(square_v_coords, base_image)
