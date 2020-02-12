@@ -1,5 +1,6 @@
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
+import math
 
 def rgb_pixel_to_grey(r, g, b):
     avg = (r+g+b)/3
@@ -32,6 +33,60 @@ def image_to_negative(base_image):
     negative_image.putdata(negative_pixels)
 
     return negative_image
+
+def get_h_square_pixels(x, y):
+    return [
+        ((x-1, y-1), -1), ((x, y-1), -1), ((x+1, y-1), -1),
+        ((x-1, y), 0),             ((x+1, y), 0),
+        ((x-1, y+1), 1), ((x, y+1), 1), ((x+1, y), 1)
+    ]
+
+def get_v_square_pixels(x, y):
+    return [
+        ((x-1, y-1), -1), ((x, y-1), 0), ((x+1, y-1), 1),
+        ((x-1, y), -1),                 ((x+1, y), 1),
+        ((x-1, y+1), -1), ((x, y+1), 0), ((x+1, y), 1)
+    ]
+def filter_square_pixel_in_image(square_coords, image_size):
+    (width, height) = image_size
+    return [
+                ((square_x, square_y), coef) for ((square_x, square_y), coef) in square_coords 
+                if square_x >= 0 and square_y >= 0 and square_x < width and square_y < height
+            ]
+
+def avg_rgb_pixels(pixel_square_coords, image):
+    r_sum = 0
+    g_sum = 0
+    b_sum = 0
+    for (coord, coef) in pixel_square_coords:
+        (r, g, b) = image.getpixel(coord)
+        r_sum += r * coef
+        g_sum += g * coef
+        b_sum += b * coef
+    pixels_len = len(pixel_square_coords)
+
+    return (r_sum//pixels_len, g_sum//pixels_len, b_sum//pixels_len)
+
+def add_h_v(h_value, v_value):
+    return int(math.sqrt(h_value ** 2 + v_value ** 2))
+
+def image_to_contour(base_image):
+    (width, height) = base_image.size
+
+    contour_image = Image.new("RGB", (width, height))
+
+    for x in range(width):
+        for y in range(height):
+            r_sum, g_sum, b_sum = (0, 0, 0)
+            square_h_coords = filter_square_pixel_in_image(get_h_square_pixels(x, y), (width, height))
+            square_v_coords = filter_square_pixel_in_image(get_v_square_pixels(x, y), (width, height))
+            
+            (rh, gh, bh) = avg_rgb_pixels(square_h_coords, base_image)
+            (rv, gv, bv) = avg_rgb_pixels(square_v_coords, base_image)
+            new_pixel_value = (add_h_v(rh, rv), add_h_v(gh, gv), add_h_v(bv, gv))
+            contour_image.putpixel((x, y), new_pixel_value)
+    return contour_image
+
 
 # EXIF
 def get_exif(img):
@@ -87,6 +142,11 @@ if __name__ == "__main__":
 
     street_art_image = Image.open(f'{images_path}/street_art.jpeg')
     mario_art_image = Image.open(f'{images_path}/mario_art.jpg')
+
+    # Contours
+    street_art_contour_image = image_to_contour(street_art_image)
+    street_art_contour_image.save(
+        f'{res_images_path}/street_art_contour.jpeg')
 
     # Exif
     labeled_exif = get_labeled_exif(mario_art_image)
