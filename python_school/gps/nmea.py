@@ -1,4 +1,5 @@
 import sys
+import folium
 
 def remove_leading_zero_dms(dms_coord:str) -> float:
     i = 0
@@ -65,8 +66,14 @@ def nmea_to_osm_url(dd_latitude, dd_longitude):
 def display_nmea_info(nmea_message):
     nmea_info = nmea_to_coords(nmea_message)
     osm_url = nmea_to_osm_url(nmea_info["dd_latitude"], nmea_info["dd_longitude"])
+    save_map_html(nmea_info['dd_latitude'], nmea_info['dd_longitude'])
     print(nmea_info)
     print(f"\n osm url : {osm_url}")
+
+def save_map_html(latitude, longitude, filename="my_map.html"):
+    m = folium.Map(location=[latitude, longitude])
+    folium.Marker(location=[latitude, longitude]).add_to(m)
+    m.save(filename)
 
 def sample_data():
     return ["$GPGGA,141512.04,4713.3975,N,00500.5647,E,1,7,1.839,282.208,M,,M,0,*7E", "$GPGGA,092750.000,5321.6802,N,00630.3372,W,1,8,1.03,61.7,M,55.2,M,,*76"]
@@ -84,5 +91,5 @@ if __name__ == "__main__":
     # display information and osm url for nmea
     for nmea_msg in nmea_messages:
         display_nmea_info(nmea_msg)
-    
+        
     

@@ -177,3 +177,6 @@ python_school/sandbox
 
 python_school/knn/iris.csv
 python_school/mytmp/knn_iris/iris.csv
+
+# html maps
+python_school/gps/*.html
