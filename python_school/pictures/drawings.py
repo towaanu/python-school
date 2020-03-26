@@ -156,6 +156,34 @@ def create_ireland_flag(width, height):
 
     return ireland_flag
 
+def create_netherland_flag(width, height):
+    netherland_flag = Image.new('RGB', (width, height))
+    red_color = (255, 0, 0)
+    white_color = (255, 255, 255)
+    blue_color = (0, 0, 255)
+
+    height_unit = height // 3
+
+    # Red band
+    for y in range(0, height_unit):
+        for x in range(width):
+            position = (x, y)
+            netherland_flag.putpixel(position, red_color)
+
+    # White band
+    for y in range(height_unit, 2*height_unit):
+        for x in range(width):
+            position = (x, y)
+            netherland_flag.putpixel(position, white_color)
+
+    # Blue band
+    for y in range(2*height_unit, height):
+        for x in range(width):
+            position = (x, y)
+            netherland_flag.putpixel(position, blue_color)
+
+    return netherland_flag
+
 if __name__ == "__main__":
     print("Hello drawing :D")
     my_drawings_path = "my_drawings"
@@ -177,3 +205,6 @@ if __name__ == "__main__":
 
     ireland_flag = create_ireland_flag(600, 300)
     ireland_flag.save(f"{my_drawings_path}/ireland_flag.jpeg")
+
+    netherland_flag = create_netherland_flag(600, 300)
+    netherland_flag.save(f"{my_drawings_path}/netherland_flag.jpeg")
